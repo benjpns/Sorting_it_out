@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public enum Runtime {
     DATATYPE("word", "line", "longs"),
-    SORTINTEGER("sort");
+    SORTINGTOOL("-sortIntegers");
 
     private String word;
     private String line;

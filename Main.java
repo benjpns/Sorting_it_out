@@ -1,7 +1,6 @@
 package sorting;
 
 import java.util.Locale;
-import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 
 public class Main {
@@ -16,13 +15,17 @@ public class Main {
            switch (mainMenu){
                case "DATATYPE":
                    Runtime type = Runtime.DATATYPE;
-                   System.out.println(type.getLine().equals(args[1]) ||
-                                      type.getWord().equals(args[1]) ||
-                                      type.getLongs().equals(args[1]) ?
-                           args[1]: "Check runtime parameter typo."); //apply method argument here
+                   boolean matchEnum = type.getLine().equals(args[1]) ||
+                           type.getWord().equals(args[1]) ||
+                           type.getLongs().equals(args[1]);
+                   if (matchEnum){
+                       new UserInput<>(args[1]);
+                   } else {
+                       System.out.println("Check runtime parameter typo.");
+                   }
                    break;
-               case "SORTINTEGER":
-                   Runtime sort = Runtime.SORTINTEGER;
+               case "SORTINGTOOL":
+                   Runtime sort = Runtime.SORTINGTOOL;
                    System.out.println(sort.type(args[1]));
                    break;
                default:
