@@ -1,7 +1,6 @@
 package sorting;
-
+import java.util.Collections;
 import java.util.Locale;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,11 +12,29 @@ public class Main {
         boolean matchEnum = type.getLine().equals(args[1]) ||
                 type.getWord().equals(args[1]) ||
                 type.getLongs().equals(args[1]);
+        UserInput ui = new UserInput();
+        ui.UInput();
+        SortInterface sInterface = new SortInterface() {
+            @Override
+            public void TotalNumbers() {
+                System.out.println("Total numbers: " + ui.input.size());
+            }
+
+            @Override
+            public void sortInteger() {
+                System.out.println("Total numbers: " + ui.input.size());
+                Collections.sort(ui.input);
+                String stringLIst = ui.input.toString();
+                System.out.println("Sorted data: " + stringLIst);
+
+            }
+        };
        try {
            switch (mainMenu){
+
                case "DATATYPE":
                    if (matchEnum){
-                       new UserInput(args[1]);
+                      sInterface.sortInteger();
                    } else {
                        System.out.println("Check runtime parameter typo.");
                    }
@@ -37,3 +54,4 @@ public class Main {
 
 
 }
+
