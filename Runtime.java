@@ -3,7 +3,7 @@ package sorting;
 import java.util.Objects;
 
 public enum Runtime {
-    DATATYPE("word", "line", "longs"),
+    XDATATYPE("word", "line", "long"),
     SORTINGTOOL("-sortIntegers");
 
     private String word;

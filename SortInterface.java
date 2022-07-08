@@ -1,6 +1,22 @@
 package sorting;
 
 public interface SortInterface {
-    void TotalNumbers();
-    void sortInteger();
+    int TotalNumbers();
 }
+
+interface BigNumber {
+    int Large();
+}
+
+interface SortedData {
+     void SortData();
+}
+
+interface Times {
+    int times();
+}
+interface Percentage {
+    double percent();
+}
+
+

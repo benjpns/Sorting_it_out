@@ -1,4 +1,6 @@
 package sorting;
+
+import java.text.CollationElementIterator;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -6,52 +8,52 @@ public class Main {
     public static void main(String[] args) {
         runTimeParameter(args);
     }
-    public static void runTimeParameter(String[] args){
-       String mainMenu = args[0].toUpperCase(Locale.ROOT);
-        Runtime type = Runtime.DATATYPE;
-        boolean matchEnum = type.getLine().equals(args[1]) ||
-                type.getWord().equals(args[1]) ||
-                type.getLongs().equals(args[1]);
+
+    public static void runTimeParameter(String[] args) {
+        String mainMenu = args[0].toUpperCase(Locale.ROOT).replace('-','X');
+        Runtime type = Runtime.valueOf(mainMenu);
+        boolean matchEnum = false;
+        boolean matchSort = false;
+        try {
+            matchEnum = type.getLine().equals(args[1]) ||
+                    type.getWord().equals(args[1]) ||
+                    type.getLongs().equals(args[1]);
+        } catch (NullPointerException e) {
+            matchSort = type.getSort().equals(args[1]);
+        }
         UserInput ui = new UserInput();
-        ui.UInput();
-        SortInterface sInterface = new SortInterface() {
-            @Override
-            public void TotalNumbers() {
-                System.out.println("Total numbers: " + ui.input.size());
+        SortInterface sInterface = () -> ui.input.size();
+        SortedData sData = () -> Collections.sort(ui.input);
+        BigNumber large = () -> Collections.max(ui.input);
+        Times times = () -> Collections.frequency(ui.input, large.Large());
+        Percentage percent = () -> ((double)times.times() / sInterface.TotalNumbers()) * 100;
+
+        try {
+            switch (mainMenu) {
+                case "XDATATYPE":
+                    if (matchEnum) {
+                        System.out.printf("Total numbers: %d\nThe longest number: %d (%d time(s), %d%%)", sInterface.TotalNumbers(), large.Large(), times.times(),(int)percent.percent());
+                    } else {
+                        System.out.println("Check runtime parameter typo.");
+                    }
+                    break;
+                case "SORTINGTOOL":
+                    if (matchSort) {
+                        sData.SortData();
+                        StringBuilder sbs = new StringBuilder();
+                        for (Integer s : ui.input) {
+                            sbs.append(s).append(" ");
+                        }
+                        System.out.println("Total numbers: " + sInterface.TotalNumbers() + "\nSorted data :" + sbs);
+                    }
+                    break;
+                default:
+                    System.out.println("word");
+                    break;
             }
-
-            @Override
-            public void sortInteger() {
-                System.out.println("Total numbers: " + ui.input.size());
-                Collections.sort(ui.input);
-                String stringLIst = ui.input.toString();
-                System.out.println("Sorted data: " + stringLIst);
-
-            }
-        };
-       try {
-           switch (mainMenu){
-
-               case "DATATYPE":
-                   if (matchEnum){
-                      sInterface.sortInteger();
-                   } else {
-                       System.out.println("Check runtime parameter typo.");
-                   }
-                   break;
-               case "SORTINGTOOL":
-                   Runtime sort = Runtime.SORTINGTOOL;
-                   System.out.println(sort.type(args[1]));
-                   break;
-               default:
-                   System.out.println("word");
-                   break;
-           }
-       } catch (ArrayIndexOutOfBoundsException e){
-           System.out.println("nullword");
-       }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("nullword");
+        }
     }
-
-
 }
 
