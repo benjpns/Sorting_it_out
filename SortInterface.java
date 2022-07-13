@@ -9,12 +9,13 @@ interface BigNumber {
 }
 
 interface SortedData {
-     void SortData();
+    void SortData();
 }
 
 interface Times {
     int times();
 }
+
 interface Percentage {
     double percent();
 }
