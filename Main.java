@@ -1,7 +1,4 @@
 package sorting;
-
-import java.text.CollationElementIterator;
-import java.util.Collections;
 import java.util.Locale;
 
 public class Main {
@@ -21,30 +18,21 @@ public class Main {
         } catch (NullPointerException e) {
             matchSort = type.getSort().equals(args[1]);
         }
-        UserInput ui = new UserInput();
-        SortInterface sInterface = () -> ui.input.size();
-        SortedData sData = () -> Collections.sort(ui.input);
-        BigNumber large = () -> Collections.max(ui.input);
-        Times times = () -> Collections.frequency(ui.input, large.Large());
-        Percentage percent = () -> ((double)times.times() / sInterface.TotalNumbers()) * 100;
 
         try {
             switch (mainMenu) {
                 case "XDATATYPE":
                     if (matchEnum) {
-                        System.out.printf("Total numbers: %d\nThe longest number: %d (%d time(s), %d%%)", sInterface.TotalNumbers(), large.Large(), times.times(),(int)percent.percent());
+                        Type stype = new Type(args[1]);
+                        System.out.println(stype.toString(args[1]));
                     } else {
                         System.out.println("Check runtime parameter typo.");
                     }
                     break;
                 case "SORTINGTOOL":
-                    if (matchSort) {
-                        sData.SortData();
-                        StringBuilder sbs = new StringBuilder();
-                        for (Integer s : ui.input) {
-                            sbs.append(s).append(" ");
-                        }
-                        System.out.println("Total numbers: " + sInterface.TotalNumbers() + "\nSorted data :" + sbs);
+                  if (matchSort) {
+                      Type stype = new Type(args[1]);
+                      System.out.println(stype.toString(args[1]));
                     }
                     break;
                 default:
