@@ -16,6 +16,7 @@ public class Main {
                     type.getWord().equals(args[1]) ||
                     type.getLongs().equals(args[1]);
         } catch (NullPointerException e) {
+            //UPDARE
             matchSort = type.getSort().equals(args[1]);
         }
 
