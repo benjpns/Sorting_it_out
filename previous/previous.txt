@@ -1,3 +1,64 @@
+
+
+
+
+
+
+
+package sorting;
+import java.util.Locale;
+
+public class Main {
+    public static void main(String[] args) {
+        runTimeParameter(args);
+    }
+
+    public static void runTimeParameter(String[] args) {
+        String mainMenu="";
+        boolean matchEnum = false;
+        boolean matchSort = false;
+        Runtime type= null;
+        try {
+            mainMenu = args[0].toUpperCase(Locale.ROOT).replace('-','X');
+             type = Runtime.valueOf(mainMenu);
+            matchEnum = type.getLine().equals(args[1]) ||
+                    type.getWord().equals(args[1]) ||
+                    type.getLongs().equals(args[1]);
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e ) {
+            Type stype = new Type("word");
+            matchSort = type.getSort().equals(args[1]);
+        }
+
+        try {
+            switch (mainMenu) {
+                case "XDATATYPE":
+                    if (matchEnum) {
+                        Type stype = new Type(args[1]);
+                        System.out.println(stype.toString(args[1]));
+                    } else {
+                        System.out.println("Check runtime parameter typo.");
+                    }
+                    break;
+                case "SORTINGTOOL":
+                  if (matchSort) {
+                      Type stype = new Type(args[1]);
+                      System.out.println(stype.toString(args[1]));
+                    }
+                    break;
+                default:
+                    System.out.println("word");
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("nullword");
+        }
+    }
+}
+
+
+
+
+--------------------------------------------
 package sorting;
 
 import org.jetbrains.annotations.NotNull;

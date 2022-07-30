@@ -3,46 +3,27 @@ import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
-        runTimeParameter(args);
+
+        processAndPrint(runTimeParameter(args));
+
+    }
+    public static String runTimeParameter(String[] args) {
+        String oneLineMenu = "";
+        StringBuilder menuMerge = new StringBuilder();
+        for (String s: args){
+            menuMerge.append(s);
+        }
+        oneLineMenu = String.valueOf(menuMerge).toUpperCase(Locale.ROOT).replaceAll("-","");
+        return oneLineMenu;
     }
 
-    public static void runTimeParameter(String[] args) {
-        String mainMenu = args[0].toUpperCase(Locale.ROOT).replace('-','X');
-        Runtime type = Runtime.valueOf(mainMenu);
-        boolean matchEnum = false;
-        boolean matchSort = false;
-        try {
-            matchEnum = type.getLine().equals(args[1]) ||
-                    type.getWord().equals(args[1]) ||
-                    type.getLongs().equals(args[1]);
-        } catch (NullPointerException e) {
-            //UPDARE FRM MAC
-            matchSort = type.getSort().equals(args[1]);
-        }
+    public static void processAndPrint(String oneLineMenu){
+        Type type = new Type(oneLineMenu);
+        System.out.println(type.toString(oneLineMenu));
+    }
 
-        try {
-            switch (mainMenu) {
-                case "XDATATYPE":
-                    if (matchEnum) {
-                        Type stype = new Type(args[1]);
-                        System.out.println(stype.toString(args[1]));
-                    } else {
-                        System.out.println("Check runtime parameter typo.");
-                    }
-                    break;
-                case "SORTINGTOOL":
-                  if (matchSort) {
-                      Type stype = new Type(args[1]);
-                      System.out.println(stype.toString(args[1]));
-                    }
-                    break;
-                default:
-                    System.out.println("word");
-                    break;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("nullword");
-        }
+    public static void validateUserArgs(String oneLineMenu){
+        Runtime enumType = Runtime.valueOf(oneLineMenu);
+
     }
 }
-

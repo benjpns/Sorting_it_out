@@ -22,14 +22,10 @@ class Type {
 
     String userArgs;
     public Type(String userArgs){
-
-
-
-
         this.userArgs = userArgs;
         Scanner scan = new Scanner(System.in);
         switch (userArgs) {
-            case "line": {
+            case "DATATYPELINE": {
                 line = new UserInput<>();
                 while (scan.hasNextLine()) {
                     line.input.add(scan.nextLine());
@@ -85,8 +81,8 @@ class Type {
     
     public String toString(String userArgs) {
         this.userArgs = userArgs;
-        if (userArgs.equals("line") || userArgs.equals("long") || userArgs.equals("word")) {
-            String numberOrWord = userArgs.equals("long") ? "number" : userArgs.equals("line") ? "line" : "word";
+        if (userArgs.equals("DATATYPELINE") || userArgs.equals("long") || userArgs.equals("word")) {
+            String numberOrWord = userArgs.equals("long") ? "number" : userArgs.equals("DATATYPELINE") ? "line" : "word";
             String greatSynonm = userArgs.equals("long") ? "greatest " : "longest ";
             String numberOrStringValue = userArgs.equals("long") ? String.valueOf(bNumber.Large()) : bString.bString();
             String ifLine = numberOrWord.equals("line") ? "\n" : "";
