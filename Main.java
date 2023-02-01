@@ -6,11 +6,14 @@ import java.util.Locale;
 public class Main {
 
     public static void main(String[] args) {
-        if (validateUserArgs(args[0], runTimeParameter(args))) {
-            processAndPrint(runTimeParameter(args));
-        } else {
+        try {
+            if (validateUserArgs(args[0], runTimeParameter(args))) {
+                processAndPrint(runTimeParameter(args));
+            }
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             System.out.println("Something went wrong.");
         }
+
     }
 
     public static String runTimeParameter(String[] args) {
