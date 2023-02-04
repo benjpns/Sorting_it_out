@@ -1,20 +1,67 @@
 package sorting;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Main {
-    public static void main(final String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Long> numbers = new ArrayList<>();
-        while (scanner.hasNextLong()) {
-            long number = scanner.nextLong();
-            numbers.add(number);
+
+    public static void main(String[] args) {
+        try {
+            if (validateUserArgs(args[0], runTimeParameter(args))) {
+                processAndPrint(runTimeParameter(args));
+            }
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            System.out.println("Something went wrong.");
         }
 
-        long max = Collections.max(numbers);
-        int maxFrequency = Collections.frequency(numbers, max);
+    }
 
-        System.out.println("Total numbers: " + numbers.size());
-        System.out.printf("The greatest number: %d (%d time(s))", max, maxFrequency);
+    public static String runTimeParameter(String[] args) {
+        if (args[0].equals("-sortIntegers")) {
+            return "SORTINTEGERS";
+        }
+        String oneLineMenu;
+        StringBuilder menuMerge = new StringBuilder();
+        for (String s : args) {
+            menuMerge.append(s);
+        }
+        oneLineMenu = String.valueOf(menuMerge).toUpperCase(Locale.ROOT).replaceAll("-", "");
+        return oneLineMenu;
+    }
+
+    public static void processAndPrint(String oneLineMenu) {
+        Type type = new Type(oneLineMenu);
+        System.out.println(type.toString(oneLineMenu));
+    }
+
+    public static boolean validateUserArgs(String args, String oneLineMenu) {
+        String stripArgs = args.toUpperCase(Locale.ROOT).replaceAll("-", "");
+        Runtime enumType = Runtime.valueOf(stripArgs);
+        ArrayList<String> enumArray = new ArrayList<>();
+        enumArray.add(enumType.getLine());
+        enumArray.add(enumType.getLongs());
+        enumArray.add(enumType.getWord());
+        enumArray.add(enumType.getLineSort());
+        enumArray.add(enumType.getWordSort());
+        enumArray.add(enumType.getLongSort());
+        enumArray.add(enumType.getNa());
+        //clear null values in enumArray list;
+        while (enumArray.remove(null)) {
+
+        }
+        boolean pass = false;
+        try {
+            for (String s : enumArray) {
+                pass = s.equals(oneLineMenu);
+                if (pass) {
+                    break;
+                }
+            }
+            return pass;
+        } catch (NullPointerException e) {
+            return false;
+
+        }
+
     }
 }
