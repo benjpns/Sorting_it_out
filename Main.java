@@ -4,17 +4,68 @@ import java.util.*;
 
 public class Main {
     public static void main(final String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Long> numbers = new ArrayList<>();
-        while (scanner.hasNextLong()) {
-            long number = scanner.nextLong();
-            numbers.add(number);
+        String argtype = "";
+        Datatype datatype;
+
+        try {
+            argtype = args[1].toUpperCase(Locale.ROOT).replace("-", "");
+
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
-        long max = Collections.max(numbers);
-        int maxFrequency = Collections.frequency(numbers, max);
+        switch (argtype) {
+            case "LINE":
+                datatype = Datatype.LINE;
+                break;
+            case "LONG":
+                datatype = Datatype.LONG;
+                break;
+            case "WORD":
+            default:
+                datatype = Datatype.WORD;
+                break;
+        }
 
-        System.out.println("Total numbers: " + numbers.size());
-        System.out.printf("The greatest number: %d (%d time(s))", max, maxFrequency);
+        Scanner scan = new Scanner(System.in);
+        switch (datatype) {
+            case LONG:
+                List<Long> numbers = new ArrayList<>();
+                while (scan.hasNext()) {
+                    long number = scan.nextLong();
+                    numbers.add(number);
+                }
+                Longs ln = new Longs();
+                ln.Compute(numbers); ln.printd();
+                break;
+            case LINE:
+                List<String> line = new ArrayList<>();
+                while (scan.hasNextLine()) {
+                    String string = scan.nextLine();
+                    line.add(string);
+                }
+                Line lin = new Line();
+                lin.Compute(line);
+                lin.printd();
+                break;
+            case WORD:
+            default:
+                List<String> word = new ArrayList<>();
+                while (scan.hasNext()) {
+                    String string = scan.next();
+                    word.add(string);
+                }
+                Word wr = new Word();
+                wr.Compute(word);
+                wr.printd();
+                break;
+        }
     }
+
 }
+
+
+
+
+
+
+
