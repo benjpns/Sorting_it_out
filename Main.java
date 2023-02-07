@@ -1,64 +1,89 @@
 package sorting;
 
-import java.util.ArrayList;
-import java.util.Locale;
+import java.util.*;
 
 public class Main {
+    public static void main(final String[] args) {
+        String argtype = "";
+        Datatype datatype;
 
-    public static void main(String[] args) {
-        if (validateUserArgs(args[0], runTimeParameter(args))) {
-            processAndPrint(runTimeParameter(args));
-        } else {
-            System.out.println("Something went wrong.");
-        }
-    }
-
-    public static String runTimeParameter(String[] args) {
-        if (args[0].equals("-sortIntegers")) {
-            return "SORTINTEGERS";
-        }
-        String oneLineMenu;
-        StringBuilder menuMerge = new StringBuilder();
-        for (String s : args) {
-            menuMerge.append(s);
-        }
-        oneLineMenu = String.valueOf(menuMerge).toUpperCase(Locale.ROOT).replaceAll("-", "");
-        return oneLineMenu;
-    }
-
-    public static void processAndPrint(String oneLineMenu) {
-        Type type = new Type(oneLineMenu);
-        System.out.println(type.toString(oneLineMenu));
-    }
-
-    public static boolean validateUserArgs(String args, String oneLineMenu) {
-        String stripArgs = args.toUpperCase(Locale.ROOT).replaceAll("-", "");
-        Runtime enumType = Runtime.valueOf(stripArgs);
-        ArrayList<String> enumArray = new ArrayList<>();
-        enumArray.add(enumType.getLine());
-        enumArray.add(enumType.getLongs());
-        enumArray.add(enumType.getWord());
-        enumArray.add(enumType.getLineSort());
-        enumArray.add(enumType.getWordSort());
-        enumArray.add(enumType.getLongSort());
-        enumArray.add(enumType.getNa());
-        //clear null values in enumArray list;
-        while (enumArray.remove(null)) {
-
-        }
-        boolean pass = false;
         try {
-            for (String s : enumArray) {
-                pass = s.equals(oneLineMenu);
-                if (pass) {
-                    break;
-                }
+            if (args[0].equals("-sortIntegers")){
+                argtype = args[0].toUpperCase(Locale.ROOT).replace("-", "");
+            } else if (args[0].equals("-dataType") && args.length < 3){
+                argtype = args[1].toUpperCase(Locale.ROOT).replace("-", "");
+            } else if (args[0].equals("-dataType") && args[2].equals("-sortIntegers")){
+                argtype = args[2].toUpperCase(Locale.ROOT).replace("-", "");
             }
-            return pass;
-        } catch (NullPointerException e) {
-            return false;
 
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
+        switch (argtype) {
+            case "SORTINTEGERS":
+                datatype = Datatype.SORT;
+                break;
+            case "LINE":
+                datatype = Datatype.LINE;
+                break;
+            case "LONG":
+                datatype = Datatype.LONG;
+                break;
+            case "WORD":
+            default:
+                datatype = Datatype.WORD;
+                break;
+        }
+
+        Scanner scan = new Scanner(System.in);
+        switch (datatype) {
+            case SORT:
+                List<Integer> sortNum = new ArrayList<>();
+                while (scan.hasNextInt()){
+                    int number = scan.nextInt();
+                    sortNum.add(number);
+                }
+                SortInt srt = new SortInt();
+                srt.Compute(sortNum); srt.printd();
+                break;
+            case LONG:
+                List<Long> numbers = new ArrayList<>();
+                while (scan.hasNext()) {
+                    long number = scan.nextLong();
+                    numbers.add(number);
+                }
+                Longs ln = new Longs();
+                ln.Compute(numbers); ln.printd();
+                break;
+            case LINE:
+                List<String> line = new ArrayList<>();
+                while (scan.hasNextLine()) {
+                    String string = scan.nextLine();
+                    line.add(string);
+                }
+                Line lin = new Line();
+                lin.Compute(line);
+                lin.printd();
+                break;
+            case WORD:
+            default:
+                List<String> word = new ArrayList<>();
+                while (scan.hasNext()) {
+                    String string = scan.next();
+                    word.add(string);
+                }
+                Word wr = new Word();
+                wr.Compute(word);
+                wr.printd();
+                break;
+        }
     }
+
 }
+
+
+
+
+
+
+
