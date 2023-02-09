@@ -1,4 +1,5 @@
 package sorting;
 public enum Datatype {
-    LONG, LINE, WORD, SORT;
+    LONG, LINE, WORD
 }
+

@@ -1,7 +1,9 @@
 package sorting;
 
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 
 class Longs {
     int totalNumber;
@@ -9,7 +11,7 @@ class Longs {
     int repeating;
     double percent;
 
-    public void Compute(List<Long> number) {
+    public void Compute(List<Long> number) throws InputMismatchException {
         totalNumber = number.size();
         greatestNumber = Collections.max(number);
         repeating = Collections.frequency(number, greatestNumber);

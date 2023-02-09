@@ -1,27 +1,27 @@
 package sorting;
-
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 
-public class SortInt {
+public class SortData<T extends Comparable<T>> {
     int totalNumber;
-    List<Integer> num;
+    List<T> data;
     String stringSortedData;
 
 
-    public void Compute(List<Integer> number) {
+    public void Compute(List<T> number) throws InputMismatchException {
+
         totalNumber = number.size();
         Collections.sort(number);
-        num = number;
+        data = number;
         StringBuilder srtData = new StringBuilder();
-        for (int s : num){
+        for (T s : data){
             srtData.append(s).append(" ");
         }
         stringSortedData = String.valueOf(srtData);
-
-
     }
-    public void printd() {
+
+    public void numbers() {
         System.out.printf("Total numbers: %s \n", totalNumber);
         System.out.printf("Sorted data: %s", stringSortedData);
     }
