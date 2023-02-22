@@ -56,7 +56,7 @@ public class Main {
                     longs.print();
                 }
                 if (!sorttype.toString().equals("NATURAL")){
-                    Bycount bycunt = new Bycount();
+                    Bycount<Long> bycunt = new Bycount<>();
                     bycunt.Compute(numbers);
                     bycunt.print();
                 }
