@@ -40,8 +40,10 @@ public class Main {
         }
 
 
-        SortData<Long> longs = null;
-        SortData<String> strings = null;
+        SortData<Long> longs;
+        SortData<String> strings;
+        Bycount<Long> bynum;
+        Bycount<String> bystring;
         switch (datatype) {
             case LONG:
                 List<Long> numbers = new ArrayList<>();
@@ -51,14 +53,14 @@ public class Main {
                 }
                 longs = new SortData<>();
                 longs.Compute(numbers);
+                System.out.println(longs.number());
                 if (!sorttype.toString().equals(bycount)) {
-                    System.out.println(longs.number());
                     longs.print();
                 }
                 if (!sorttype.toString().equals("NATURAL")){
-                    Bycount<Long> bycunt = new Bycount<>();
-                    bycunt.Compute(numbers);
-                    bycunt.print();
+                    bynum = new Bycount<>();
+                    bynum.Compute(numbers);
+                    bynum.byCountPrint();
                 }
                 break;
             case LINE:
@@ -72,6 +74,12 @@ public class Main {
                     ln.Compute(line);
                     System.out.println(ln.line());
                     ln.newLine(); ln.print();
+                }
+                if (!sorttype.toString().equals("NATURAL")){
+                    bystring = new Bycount<>();
+                    bystring.Compute(line);
+                    System.out.println(bystring.line());
+                    bystring.byCountPrint();
                 }
 
                 break;

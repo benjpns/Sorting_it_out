@@ -1,12 +1,11 @@
 package sorting;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SortData<T extends Comparable<T>> implements Toprint {
     int totalNumber;
     List<T> data;
     String stringSortedData;
-    Map<T, Integer> bycount = new HashMap<>();
+    TreeMap<T, Integer> bycount = new TreeMap<>();
     StringBuilder srtData;
     public void Compute(List<T> number) throws InputMismatchException {
         totalNumber = number.size();
@@ -77,11 +76,11 @@ class Line extends SortData<String>{
 class Bycount<T extends Comparable<T>> extends SortData<T>  {
     Map<T, Integer> unSortedmap = new TreeMap<>();
    Map<T, Integer> repeatElements = new LinkedHashMap<>();
-    public  void naturalSort() {
+    public void byCountSort() {
         unSortedmap = bycount;
         //put repeating elements in lastIndexas
         for (T key: bycount.keySet()){
-            System.out.println(key + ":" + bycount.get(key));
+            //System.out.println(key + ":" + bycount.get(key));
             if (bycount.get(key) > 1){
                 repeatElements.put(key, bycount.get(key));
             }
@@ -89,21 +88,21 @@ class Bycount<T extends Comparable<T>> extends SortData<T>  {
         //remove repeated element sets from unsortedmap
         unSortedmap.values().removeIf(v -> v > 1);
 
-        // sor
-        System.out.println("repeating elements" + repeatElements.entrySet());
-        System.out.print(unSortedmap.entrySet());
+        // numerical/ lexicographically sorted
+        for (T k: unSortedmap.keySet()){
+            int ct1 = unSortedmap.get(k);
+            double percent = (double) ct1 / totalNumber * 100;
+            System.out.printf("%s: %d time(s), %s%% \n", k, ct1, Math.round(percent));
 
+        }
+            for (T k2: repeatElements.keySet()){
+                int ct2 = repeatElements.get(k2);
+                double percent = (double) ct2 / totalNumber * 100;
+                System.out.printf("%s: %d time(s), %s%% \n", k2, ct2,  Math.round(percent));
+        }
     }
-    public void print(){
-        naturalSort();
+    public void byCountPrint(){
+        byCountSort();
     }
 }
-
-/*
-  for (Integer n: bycount.values()){
-            if (n > 1){
-                byvalue.put((T) bycount.get(n), n);
-            }
-        }
- */
 
