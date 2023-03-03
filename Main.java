@@ -1,5 +1,4 @@
 package sorting;
-import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -9,7 +8,7 @@ public class Main {
         String bycount = "BYCOUNT";
         EnumDtypes datatype;
         Sorttype sorttype;
-        Parametermap map= new Parametermap(args);;
+        Parametermap map= new Parametermap(args);
         try {
             dtypeUser = map.userinputs.getOrDefault("-dataType", dtypeUser).toUpperCase(Locale.ROOT);
             stypeUser = map.userinputs.getOrDefault("-sortingType", stypeUser).toUpperCase(Locale.ROOT);
@@ -44,12 +43,18 @@ public class Main {
         SortData<String> strings;
         Bycount<Long> bynum;
         Bycount<String> bystring;
+
         switch (datatype) {
             case LONG:
                 List<Long> numbers = new ArrayList<>();
                 while (scan.hasNext()) {
-                    long number = scan.nextLong();
-                    numbers.add(number);
+                    try {
+                        long number = scan.nextLong();
+                        numbers.add(number);
+                    } catch (InputMismatchException e){
+                        System.out.println("\"" + scan.next() + "\" is not a long. It will be skipped.");
+                    }
+
                 }
                 longs = new SortData<>();
                 longs.Compute(numbers);
@@ -90,11 +95,18 @@ public class Main {
                     String string = scan.next();
                     word.add(string);
                 }
-
-                strings = new SortData<>();
-                strings.Compute(word);
-                System.out.println(strings.word());
-                strings.print();
+                if (!sorttype.toString().equals(bycount)) {
+                    strings = new SortData<>();
+                    strings.Compute(word);
+                    System.out.println(strings.word());
+                    strings.print();
+                }
+                if (!sorttype.toString().equals("NATURAL")){
+                    bystring = new Bycount<>();
+                    bystring.Compute(word);
+                    System.out.println(bystring.word());
+                    bystring.byCountPrint();
+                }
                 break;
         }
 
